@@ -1,0 +1,10 @@
+/vendor
+/phpunit.xml
+/.php_cs.cache
+composer.lock
+.php-cs-fixer.cache
+.phpunit.result.cache
+/node_modules/
+yarn.lock
+.deptrac.cache
+/var
