@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\McpCohesivo\DependencyInjection\Compiler;
 
 use Ibexa\Contracts\OrderManagement\OrderServiceInterface;
-use Ibexa\Mcp\Tool\Commerce\OrderTools;
+use Ibexa\McpCohesivo\Tool\Commerce\OrderTools;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

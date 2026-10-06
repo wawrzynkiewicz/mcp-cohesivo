@@ -11,7 +11,6 @@ namespace Ibexa\McpCohesivo\Tool\Commerce;
 use Ibexa\Contracts\CoreSearch\Values\Query\Criterion\FieldValueCriterion;
 use Ibexa\Contracts\Mcp\Attribute\McpTool;
 use Ibexa\Contracts\Mcp\McpCapabilityInterface;
-use Ibexa\Contracts\Mcp\ToolResult;
 use Ibexa\Contracts\OrderManagement\OrderServiceInterface;
 use Ibexa\Contracts\OrderManagement\Value\Order\OrderInterface;
 use Ibexa\Contracts\OrderManagement\Value\Order\OrderListInterface;
@@ -124,6 +123,17 @@ final readonly class OrderTools implements McpCapabilityInterface
         'required' => ['totalCount', 'limit', 'offset', 'orders'],
     ];
 
+    private const array ORDER_SCHEMA2 = [
+        'type' => 'object',
+        'description' => 'A single order including its order lines.',
+        'properties' => [
+            'id' => ['type' => 'integer', 'description' => 'Numeric order id.'],
+            'identifier' => ['type' => 'string', 'description' => 'Order identifier (UUID).'],
+            'status' => ['type' => 'string', 'description' => 'Order Status.'],
+            ],
+        'required' => ['id', 'identifier', 'status'],
+        ];
+
     private const array ORDER_SCHEMA = [
         'type' => 'object',
         'description' => 'A single order including its order lines.',
@@ -159,7 +169,7 @@ final readonly class OrderTools implements McpCapabilityInterface
         ),
         outputSchema: self::ORDER_LIST_SCHEMA,
     )]
-    public function listOrders(int $limit = OrderQuery::DEFAULT_LIMIT, int $offset = 0): ToolResult
+    public function listOrders(int $limit = OrderQuery::DEFAULT_LIMIT, int $offset = 0): array
     {
         try {
             $query = new OrderQuery(
@@ -169,9 +179,10 @@ final readonly class OrderTools implements McpCapabilityInterface
                 max(0, $offset),
             );
 
-            return ToolResult::success($this->mapOrderList($this->orderService->findOrders($query), $query));
+
+            return $this->mapOrderList($this->orderService->findOrders($query), $query);
         } catch (\Throwable $e) {
-            return ToolResult::failure($e);
+            return ['error' => $e->getMessage()];
         }
     }
 
@@ -214,7 +225,7 @@ final readonly class OrderTools implements McpCapabilityInterface
         string $sortDirection = 'desc',
         int $limit = OrderQuery::DEFAULT_LIMIT,
         int $offset = 0,
-    ): ToolResult {
+    ): array {
         try {
             $criteria = [];
             if (!empty($statuses)) {
@@ -249,9 +260,9 @@ final readonly class OrderTools implements McpCapabilityInterface
                 max(0, $offset),
             );
 
-            return ToolResult::success($this->mapOrderList($this->orderService->findOrders($query), $query));
+            return $this->mapOrderList($this->orderService->findOrders($query), $query);
         } catch (\Throwable $e) {
-            return ToolResult::failure($e);
+            return ['error' => $e->getMessage()];
         }
     }
 
@@ -271,7 +282,7 @@ final readonly class OrderTools implements McpCapabilityInterface
         ),
         outputSchema: self::ORDER_SCHEMA,
     )]
-    public function loadOrder(?int $id = null, ?string $identifier = null): ToolResult
+    public function loadOrder(?int $id = null, ?string $identifier = null): array
     {
         try {
             if ($id !== null) {
@@ -279,14 +290,12 @@ final readonly class OrderTools implements McpCapabilityInterface
             } elseif ($identifier !== null && $identifier !== '') {
                 $order = $this->orderService->getOrderByIdentifier($identifier);
             } else {
-                return ToolResult::failure('Either "id" or "identifier" must be provided.');
+                return ['error' => 'Either "id" or "identifier" must be provided.'];
             }
 
-            return ToolResult::success($this->mapOrder($order) + [
-                'items' => array_map($this->mapOrderItem(...), array_values($order->getItems())),
-            ]);
+            return $this->mapOrder($order) + ['items' => array_map($this->mapOrderItem(...), array_values($order->getItems()))];
         } catch (\Throwable $e) {
-            return ToolResult::failure($e);
+            return ['error' => $e->getMessage()];
         }
     }
 

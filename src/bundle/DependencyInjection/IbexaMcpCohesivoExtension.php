@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\McpCohesivo\DependencyInjection;
 
-use Ibexa\Contracts\Mcp\McpCapabilityInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,10 +28,6 @@ final class IbexaMcpCohesivoExtension extends Extension implements PrependExtens
         );
 
         $phpFileLoader->load('services.php');
-
-        // Auto-tag classes implementing McpCapabilityInterface
-        $container->registerForAutoconfiguration(McpCapabilityInterface::class)
-            ->addTag('ibexa.mcp.capability');
     }
 
     public function prepend(ContainerBuilder $container): void
