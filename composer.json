@@ -15,35 +15,35 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.3",
-        "ibexa/commerce": "~5.0",
-        "ibexa/rest": "~5.0",
-        "ibexa/seo": "~5.0",
+        "ibexa/commerce": "~6.0.x-dev",
+        "ibexa/rest": "~6.0.x-dev",
+        "ibexa/seo": "~6.0.x-dev",
         "mcp/sdk": "^0.7.1",
         "psr/simple-cache": "^3.0",
-        "symfony/config": "^7.4",
-        "symfony/dependency-injection": "^7.4",
-        "symfony/event-dispatcher": "^7.4",
-        "symfony/http-foundation": "^7.4",
-        "symfony/http-kernel": "^7.4",
-        "symfony/psr-http-message-bridge": "^7.4",
-        "symfony/yaml": "^7.4"
+        "symfony/config": "^7.4 || ^8.1",
+        "symfony/dependency-injection": "^7.4 || ^8.1",
+        "symfony/event-dispatcher": "^7.4 || ^8.1",
+        "symfony/http-foundation": "^7.4 || ^8.1",
+        "symfony/http-kernel": "^7.4 || ^8.1",
+        "symfony/psr-http-message-bridge": "^7.4 || ^8.1",
+        "symfony/yaml": "^7.4 || ^8.1"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^8.2",
         "deptrac/deptrac": "^3.0",
-        "ibexa/behat": "~5.0",
+        "ibexa/behat": "~6.0.x-dev",
         "ibexa/code-style": "~2.1.0",
-        "ibexa/phpstan": "~5.0",
-        "ibexa/rector": "~5.0",
-        "ibexa/test-core": "~5.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^5.1",
+        "ibexa/phpstan": "~6.0.x-dev",
+        "ibexa/rector": "~6.0.x-dev",
+        "ibexa/test-core": "~6.0.x-dev",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2",
         "phpstan/phpstan-symfony": "^2.0",
-        "phpunit/phpunit": "^9.5",
-        "symfony/monolog-bundle": "^3.11",
-        "symfony/phpunit-bridge": "^7.4"
+        "phpunit/phpunit": "^11.5",
+        "symfony/monolog-bundle": "^3.11 || ^4.0",
+        "symfony/phpunit-bridge": "^7.4 || ^8.1"
     },
     "autoload": {
         "psr-4": {
@@ -77,7 +77,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "5.0.x-dev"
+            "dev-main": "6.0.x-dev"
         }
     },
     "config": {
